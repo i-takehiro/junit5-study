@@ -13,4 +13,4 @@ dependencies:
 test:
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
-    - cp -r ./build/test-results/junit5/ $CIRCLE_TEST_REPORTS/junit/
+    - cp -r ./build/test-results/junit5/* $CIRCLE_TEST_REPORTS/junit/

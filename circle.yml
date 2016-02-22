@@ -1,0 +1,16 @@
+machine:
+  timezone: Asia/Tokyo
+  java:
+    version: oraclejdk8
+  environment:
+    GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xms2048m -Xmx2048m" -Dorg.gradle.daemon=true'
+
+dependencies:
+  override:
+    - ./gradlew -v
+    - ./gradlew clean junit5Test
+
+test:
+  post:
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit5/
+    - cp -r ./build/test-results/junit5/ $CIRCLE_TEST_REPORTS/junit5/

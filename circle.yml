@@ -8,9 +8,9 @@ machine:
 dependencies:
   override:
     - ./gradlew -v
-    - ./gradlew clean junit5Test
+    - ./gradlew clean compileTestJava
 
 test:
   post:
-    - mkdir -p $CIRCLE_TEST_REPORTS/junit5/
-    - cp -r ./build/test-results/junit5/ $CIRCLE_TEST_REPORTS/junit5/
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+    - cp -r ./build/test-results/junit5/ $CIRCLE_TEST_REPORTS/junit/

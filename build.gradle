@@ -1,0 +1,29 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.junit:junit-gradle:5.0.0-ALPHA'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.junit.gen5.gradle'
+
+sourceCompatibility = targetCompatibility = 1.8
+
+tasks.withType(AbstractCompile) { options.encoding = 'UTF-8' }
+
+repositories {
+    mavenCentral()
+}
+
+junit5 {
+    version '5.0.0-ALPHA'
+}
+
+wrapper {
+    gradleVersion = "2.11"
+}

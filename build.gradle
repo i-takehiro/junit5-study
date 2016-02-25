@@ -10,6 +10,12 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
+
+// JUnit5Plugin を適用すると、以下のモジュールが依存関係に追加される
+// junit5-api (testCompile スコープ)
+// junit-console (testRuntime スコープ)
+// junit5-engine (testRuntime スコープ)
+// junit4-engine (testRuntime スコープ) -> runJunit4 true の場合のみ
 apply plugin: 'org.junit.gen5.gradle'
 
 sourceCompatibility = targetCompatibility = 1.8
@@ -20,8 +26,31 @@ repositories {
     mavenCentral()
 }
 
+dependencies {
+    // アサーションライブラリに Hamcrest を利用する場合の設定
+    // testCompile 'org.hamcrest:hamcrest-library:1.3'
+
+    // JUnit4 のテストを JUnit5 で実行する場合の設定
+    // testCompile 'junit:junit:4.12'
+    // 以下は JUnit5Plugin で runJunit4 を true に設定すると追加される
+    // -> この設定がないと、JUnit4 のテストが JUnit5 のテストランナーから認識されない
+    // testRuntime 'org.junit:junit4-engine:5.0.0-ALPHA'
+
+    // JUnit5 のテストを JUnit4 で実行する場合の設定
+    // -> 以下の設定を追加することで IDE から JUnit5 のテストを実行することができる
+    // -> (テストの記述方法)
+    //    -> テストクラスに @RunWith(JUnit5.class) を付与する
+    //    -> テストクラスを public にする
+    // testCompile 'org.junit:junit4-runner:5.0.0-ALPHA'
+    // 以下の２つは JUnit5Plugin によって追加されるので、JUnit5Plugin を用いる場合は不要
+    // testCompile 'org.junit:junit5-api:5.0.0-ALPHA'
+    // testRuntime 'org.junit:junit5-engine:5.0.0-ALPHA'
+}
+
 junit5 {
     version '5.0.0-ALPHA'
+    // JUnit4 のテストを実行する場合に以下の記述を追加
+    // runJunit4 true
 }
 
 wrapper {
